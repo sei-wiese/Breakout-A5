@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class GameManager : SingletonMonoBehavior<GameManager>
 {
@@ -9,6 +10,8 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     // Add a field to assign the Particle Effect Prefab
     [Header("Particle Effects")]
     [SerializeField] private ParticleSystem brickExplosionEffect;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private float score = 0;
 
 
     private int currentBrickCount;
@@ -43,7 +46,8 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         CameraShake.Instance.ShakeCamera(0.3f, 0.5f);
 
         currentBrickCount--;
-        Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining");
+        score++;
+        Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining, score: {score}");
         if(currentBrickCount == 0) SceneHandler.Instance.LoadNextScene();
     }
 
