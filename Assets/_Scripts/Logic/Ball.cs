@@ -16,6 +16,11 @@ public class Ball : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Paddle"))
         {
+
+            // Camera shake on collision with paddle ( shorter/weaker shake)
+            CameraShake.Instance.ShakeCamera(0.2f, 0.3f);
+
+
             Vector3 directionToFire = (transform.position - other.transform.position).normalized;
             float angleOfContact = Vector3.Angle(transform.forward, directionToFire);
             float returnSpeed = Mathf.Lerp(minBallBounceBackSpeed, maxBallBounceBackSpeed, angleOfContact / 90f);
