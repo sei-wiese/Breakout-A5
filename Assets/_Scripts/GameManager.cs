@@ -46,7 +46,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         CameraShake.Instance.ShakeCamera(0.3f, 0.5f);
 
         currentBrickCount--;
-        score++;
+        IncrementScore();
         Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining, score: {score}");
         if(currentBrickCount == 0) SceneHandler.Instance.LoadNextScene();
     }
@@ -57,5 +57,10 @@ public class GameManager : SingletonMonoBehavior<GameManager>
         // update lives on HUD here
         // game over UI if maxLives < 0, then exit to main menu after delay
         ball.ResetBall();
+    }
+    private void IncrementScore()
+    {
+        score++;
+        scoreText.text = $"Score: {score}";
     }
 }
