@@ -11,11 +11,12 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     [Header("Particle Effects")]
     [SerializeField] private ParticleSystem brickExplosionEffect;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private float score = 0;
+    [SerializeField] private float score;
 
 
     private int currentBrickCount;
     private int totalBrickCount;
+
 
     private void OnEnable()
     {
