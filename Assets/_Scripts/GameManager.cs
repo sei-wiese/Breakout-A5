@@ -6,6 +6,11 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     [SerializeField] private Ball ball;
     [SerializeField] private Transform bricksContainer;
 
+    // Add a field to assign the Particle Effect Prefab
+    [Header("Particle Effects")]
+    [SerializeField] private ParticleSystem brickExplosionEffect;
+
+
     private int currentBrickCount;
     private int totalBrickCount;
 
@@ -31,6 +36,9 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     {
         // fire audio here
         // implement particle effect here
+        if (brickExplosionEffect != null)
+        {Instantiate(brickExplosionEffect, position, Quaternion.identity);}
+
         // add camera shake here
         currentBrickCount--;
         Debug.Log($"Destroyed Brick at {position}, {currentBrickCount}/{totalBrickCount} remaining");
