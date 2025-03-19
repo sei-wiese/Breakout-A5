@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private float ballLaunchSpeed;
     [SerializeField] private float minBallBounceBackSpeed;
     [SerializeField] private float maxBallBounceBackSpeed;
+    [SerializeField] private float ballSpeedUpSpeed;
     [Header("References")]
     [SerializeField] private Transform ballAnchor;
     [SerializeField] private Rigidbody rb;
@@ -14,7 +15,7 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Paddle"))
+        if (other.gameObject.CompareTag("Paddle"))
         {
 
             // Camera shake on collision with paddle ( shorter/weaker shake)
@@ -28,6 +29,15 @@ public class Ball : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             rb.AddForce(directionToFire * returnSpeed, ForceMode.Impulse);
         }
+        else if (other.gameObject.CompareTag("Bricks"))
+        {
+            // Linear speed up function is not very interesting but 
+            // easier for the player to manage and to tune compared to 
+            // exponential.
+            minBallBounceBackSpeed += ballSpeedUpSpeed;
+            maxBallBounceBackSpeed += ballSpeedUpSpeed;
+        }
+
     }
 
     public void ResetBall()
