@@ -98,6 +98,7 @@ MonoBehaviour:
   ballLaunchSpeed: 7
   minBallBounceBackSpeed: 6
   maxBallBounceBackSpeed: 10
+  ballSpeedUpSpeed: 1
   ballAnchor: {fileID: 0}
   rb: {fileID: 8959031048966596842}
 --- !u!1 &4625805382739171240
