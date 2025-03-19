@@ -27,7 +27,7 @@ public class SceneHandler : SingletonMonoBehavior<SceneHandler>
 
     private void OnSceneLoad(Scene scene, LoadSceneMode _)
     {
-        transitionCanvas.DOLocalMoveX(initXPosition, animationDuration).SetEase(animationType);
+        // transitionCanvas.DOLocalMoveX(initXPosition, animationDuration).SetEase(animationType);
     }
 
     public void LoadNextScene()
@@ -41,7 +41,8 @@ public class SceneHandler : SingletonMonoBehavior<SceneHandler>
         }
         else
         {
-            transitionCanvas.DOLocalMoveX(initXPosition + transitionCanvas.rect.width, animationDuration).SetEase(animationType);
+            var distanceToCoverScreen = transitionCanvas.rect.width * 1.5f;
+            transitionCanvas.DOLocalMoveX(initXPosition + distanceToCoverScreen, animationDuration).SetEase(animationType);
             StartCoroutine(LoadSceneAfterTransition(levels[nextLevelIndex]));
             nextLevelIndex++;
         }
@@ -54,9 +55,21 @@ public class SceneHandler : SingletonMonoBehavior<SceneHandler>
         nextLevelIndex = 0;
     }
 
+    private IEnumerator ResetTransitionCanvas() 
+    {
+        yield return new WaitForSeconds(animationDuration);
+        var localPosition = transitionCanvas.localPosition;
+        transitionCanvas.localPosition = new Vector3(initXPosition, localPosition.y, localPosition.z);
+    }
+
     private IEnumerator LoadSceneAfterTransition(string scene)
     {
         yield return new WaitForSeconds(animationDuration);
         SceneManager.LoadScene(scene);
+
+        var distanceToCoverScreen = transitionCanvas.rect.width * 1.5f;
+        var distanceToLeaveScreen = distanceToCoverScreen * 2.0f;
+        transitionCanvas.DOLocalMoveX(initXPosition + distanceToLeaveScreen, animationDuration).SetEase(animationType);
+        StartCoroutine(ResetTransitionCanvas());
     }
 }
