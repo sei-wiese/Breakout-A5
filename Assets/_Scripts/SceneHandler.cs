@@ -34,6 +34,9 @@ public class SceneHandler : SingletonMonoBehavior<SceneHandler>
     {
         if(nextLevelIndex >= levels.Count)
         {
+            // All levels have been completed, reset back to the first lavel to be able 
+            // to replay the game.
+            nextLevelIndex = 0;
             LoadMenuScene();
         }
         else
