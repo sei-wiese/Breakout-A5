@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -9,7 +10,7 @@ public class Ball : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform ballAnchor;
     [SerializeField] private Rigidbody rb;
-
+    [SerializeField] private AudioSource collisionAudioSource;
     private bool isBallActive;
 
     private void OnCollisionEnter(Collision other)
@@ -28,6 +29,11 @@ public class Ball : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             rb.AddForce(directionToFire * returnSpeed, ForceMode.Impulse);
         }
+        if (collisionAudioSource != null && collisionAudioSource.clip != null)
+            {
+                collisionAudioSource.Play();
+                Console.WriteLine("Wall Hit");
+            }
     }
 
     public void ResetBall()

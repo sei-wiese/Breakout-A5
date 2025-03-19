@@ -6,6 +6,7 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     [SerializeField] private int maxLives = 3;
     [SerializeField] private Ball ball;
     [SerializeField] private Transform bricksContainer;
+    [SerializeField] private AudioSource fireAudioSource;
 
     // Add a field to assign the Particle Effect Prefab
     [Header("Particle Effects")]
@@ -34,6 +35,10 @@ public class GameManager : SingletonMonoBehavior<GameManager>
     private void FireBall()
     {
         ball.FireBall();
+        if (fireAudioSource != null && fireAudioSource.clip != null)
+        {
+            fireAudioSource.Play();
+        }
     }
 
     public void OnBrickDestroyed(Vector3 position)
